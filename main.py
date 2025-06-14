@@ -9,6 +9,7 @@ class QuestionRequest(BaseModel):
 
 app = FastAPI()
 
+# Allow CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,6 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Load the FAQ data
 with open("data/tds_faq.json", "r") as file:
     faq_data = json.load(file)
 
@@ -27,7 +29,6 @@ def root():
 @app.post("/ask")
 def answer_question(request: QuestionRequest):
     user_question = request.question.lower()
-
     for item in faq_data:
         if item["question"].lower() in user_question or user_question in item["question"].lower():
             return {
@@ -39,7 +40,6 @@ def answer_question(request: QuestionRequest):
                     }
                 ]
             }
-
     return {
         "answer": f"Sorry, I don’t have an answer for: {request.question}",
         "links": []
