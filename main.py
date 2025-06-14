@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 
@@ -10,9 +11,22 @@ class QuestionRequest(BaseModel):
 # Create the FastAPI app
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all sources to connect
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # Load your FAQ data from JSON
 with open("data/tds_faq.json", "r") as file:
     faq_data = json.load(file)
+
+@app.get("/")
+def root():
+    return {"message": "TDS Virtual TA is running."}
 
 # Define your route
 @app.post("/")
