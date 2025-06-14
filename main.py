@@ -25,6 +25,10 @@ with open("data/tds_faq.json", "r") as file:
     faq_data = json.load(file)
 
 @app.get("/")
+def test():
+    return {"status": "Server is live"}
+
+@app.get("/")
 def root():
     return {"message": "TDS Virtual TA is running."}
 
