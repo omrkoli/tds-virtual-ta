@@ -3,37 +3,28 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 
-# Define the structure of the request
 class QuestionRequest(BaseModel):
     question: str
-    image: str = None
+    image: str = ""
 
-# Create the FastAPI app
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all sources to connect
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
-# Load your FAQ data from JSON
 with open("data/tds_faq.json", "r") as file:
     faq_data = json.load(file)
-
-@app.get("/")
-def test():
-    return {"status": "Server is live"}
 
 @app.get("/")
 def root():
     return {"message": "TDS Virtual TA is running."}
 
-# Define your route
-@app.post("/")
+@app.post("/ask")
 def answer_question(request: QuestionRequest):
     user_question = request.question.lower()
 
@@ -53,4 +44,3 @@ def answer_question(request: QuestionRequest):
         "answer": f"Sorry, I don’t have an answer for: {request.question}",
         "links": []
     }
-
