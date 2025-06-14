@@ -1,0 +1,14 @@
+[
+  {
+    "question": "How do I activate my virtual environment?",
+    "answer": "Use the command `venv\\Scripts\\activate` in Command Prompt."
+  },
+  {
+    "question": "What is the deadline for Project 1?",
+    "answer": "The Project 1 submission deadline is 16 Feb 2025."
+  },
+  {
+    "question": "Where do I submit the project?",
+    "answer": "You should submit your project via the LMS portal under the 'Projects' tab."
+  }
+]
