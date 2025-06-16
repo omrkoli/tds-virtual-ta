@@ -26,7 +26,7 @@ with open("data/tds_faq.json", "r") as file:
 def root():
     return {"message": "TDS Virtual TA is running."}
 
-@app.post("/ask")
+@app.post("/")
 def answer_question(request: QuestionRequest):
     user_question = request.question.lower()
     for item in faq_data:
